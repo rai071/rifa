@@ -13,42 +13,34 @@
 <section class="content">
   <div class="row">
     <p class="lead text-center">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Número</th>
-            <th>Nome</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Moe</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Dooley</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
-        </tbody>
-      </table>
+
+      <div class="dash-table-container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>
+                Número
+              </th>
+              <th>
+                Filme
+              </th>
+              <th>
+               Email
+              </th>
+             
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of users; let i=index;" (click)="selectUsers($event, u);" [class.selected]="u.flag === true">
+              <td>{{u.numero}}</td>
+              <td>{{u.filme}}</td>
+              <td>{{u.email}}</td>
+            </tr> 
+          </tbody>
+        </table>
+      </div>
+
+
+    
   </div>
 </section>
 

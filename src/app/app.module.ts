@@ -3,7 +3,11 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
+
+import locatePt from '@angular/common/locales/pt';
+
+registerLocaleData(locatePt, 'pt')
 
 import { ROUTES } from './app-routers';
 
@@ -13,6 +17,8 @@ import { RifasComponent } from './rifas/rifas.component';
 import { AboutComponent } from './about/about.component';
 import { HeaderComponent } from './header/header.component';
 import { RifaComponent } from './rifas/rifa/rifa.component';
+import { LoginComponent } from './security/login/login.component';
+import { UserDetailsComponent } from './header/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +27,18 @@ import { RifaComponent } from './rifas/rifa/rifa.component';
     RifasComponent,
     AboutComponent,
     HeaderComponent,
-    RifaComponent
+    RifaComponent,
+    LoginComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules })
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,8 @@ import { Rifa } from './rifa/rifa.model';
 
 import { Observable } from 'rxjs';
 import { RifasService } from './rifas.service';
+import { User } from '../security/login/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rifas',
@@ -29,13 +31,25 @@ import { RifasService } from './rifas.service';
 
 export class RifasComponent implements OnInit {
 
+  users = [
+    { numero: '1', filme: 'Vingadores', email: '', flag: false },
+    { numero: '2', filme: 'Tropa de Elite', email: '', flag: false },
+    { numero: '3', filme: 'Star Wars', email: '', flag: false },
+    { numero: '4', filme: 'Godzilla', email: '', flag: false }
+  ];
+
   searchBarState = 'hidden';
   rifas: Rifa[];
+  usuario: User = new User('', '');
 
   searchForm: FormGroup;
   searchControl: FormControl;
 
-  constructor() {
+  constructor(private router: Router) {
+    if (localStorage.length > 0) {
+      this.usuario = JSON.parse(localStorage.getItem('user'));
+      console.log(localStorage);
+    }
   }
 
   ngOnInit() {
@@ -43,6 +57,16 @@ export class RifasComponent implements OnInit {
 
   toggleSearch() {
     this.searchBarState = this.searchBarState === 'hidden' ? 'visible' : 'hidden';
+  }
+
+  public selectUsers(event: any, user: any) {
+    user.flag = !user.flag;
+
+    if (this.usuario !== null && this.usuario.email !== '') {
+      user.email = this.usuario.email;
+    } else {
+      this.router.navigateByUrl('login');
+    }
   }
 
 }

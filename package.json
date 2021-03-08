@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
     "admin-lte": "2.3.11",
+    "caniuse-lite": "^1.0.30001197",
     "font-awesome": "^4.7.0",
     "ionicons": "^2.0.1",
     "jquery": "^3.6.0",
