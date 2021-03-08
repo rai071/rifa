@@ -33,7 +33,7 @@ export class RifasComponent implements OnInit {
 
   users = [
     { numero: '1', filme: 'Vingadores', email: '', flag: false },
-    { numero: '2', filme: 'Tropa de Elite', email: '', flag: false },
+    { numero: '2', filme: 'Tropa de Elite', email: 'rai071@github.com', flag: false },
     { numero: '3', filme: 'Star Wars', email: '', flag: false },
     { numero: '4', filme: 'Godzilla', email: '', flag: false }
   ];
@@ -63,8 +63,13 @@ export class RifasComponent implements OnInit {
     user.flag = !user.flag;
 
     if (this.usuario !== null && this.usuario.email !== '') {
-      user.email = this.usuario.email;
+      if (user.email !== '') {
+        // alerta que não pode escolher um numero já selecionado
+      } else {
+        user.email = this.usuario.email;
+      }
     } else {
+      // alerta que não está logado e redirecina para login
       this.router.navigateByUrl('login');
     }
   }
