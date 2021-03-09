@@ -1,34 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { Rifa } from './rifa/rifa.model';
-
-import { Observable } from 'rxjs';
-import { RifasService } from './rifas.service';
+import { empty, Observable } from 'rxjs';
 import { User } from '../security/login/user.model';
 import { Router } from '@angular/router';
+import { NotificationService } from '../messages/notification.service';
+
+
 
 @Component({
   selector: 'app-rifas',
   templateUrl: './rifas.component.html',
-  styleUrls: ['./rifas.component.css'],
-  animations: [
-    trigger('toggleSearch', [
-      state('hidden', style({
-        opacity: 0,
-        'max-height': '0px'
-      })),
-      state('visible', style({
-        opacity: 1,
-        'max-height': '70px',
-        'margin-top': '20px'
-      })),
-      transition('* => *', animate('250ms 0s ease-in-out'))
-    ])
-  ]
+  styleUrls: ['./rifas.component.css']
 })
 
+@Injectable()
 export class RifasComponent implements OnInit {
 
   users = [
@@ -38,40 +25,40 @@ export class RifasComponent implements OnInit {
     { numero: '4', filme: 'Godzilla', email: '', flag: false }
   ];
 
+  time = new Date();
+
   searchBarState = 'hidden';
-  rifas: Rifa[];
   usuario: User = new User('', '');
 
   searchForm: FormGroup;
   searchControl: FormControl;
 
+  notificationService: NotificationService;
+
   constructor(private router: Router) {
     if (localStorage.length > 0) {
       this.usuario = JSON.parse(localStorage.getItem('user'));
-      console.log(localStorage);
     }
   }
 
   ngOnInit() {
-  }
-
-  toggleSearch() {
-    this.searchBarState = this.searchBarState === 'hidden' ? 'visible' : 'hidden';
+    setInterval(() => {
+      this.time = new Date();
+    }, 1000);
   }
 
   public selectUsers(event: any, user: any) {
     user.flag = !user.flag;
-
-    if (this.usuario !== null && this.usuario.email !== '') {
-      if (user.email !== '') {
-        // alerta que não pode escolher um numero já selecionado
-      } else {
-        user.email = this.usuario.email;
-      }
+    this.notificationService = new NotificationService(this.router);
+    const s = user.email;
+    console.log(s);
+    if (s) {
+      const msg = `Número já selecionado`;
+      this.notificationService.simpleAlert(msg);
+    } else if (this.usuario.email) {
+      user.email = this.usuario.email;
     } else {
-      // alerta que não está logado e redirecina para login
-      this.router.navigateByUrl('login');
+      this.notificationService.alertConfirmation();
     }
   }
-
 }

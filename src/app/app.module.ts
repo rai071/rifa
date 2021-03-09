@@ -16,10 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { RifasComponent } from './rifas/rifas.component';
 import { AboutComponent } from './about/about.component';
 import { HeaderComponent } from './header/header.component';
-import { RifaComponent } from './rifas/rifa/rifa.component';
 import { LoginComponent } from './security/login/login.component';
 import { UserDetailsComponent } from './header/user-details/user-details.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +25,6 @@ import { UserDetailsComponent } from './header/user-details/user-details.compone
     RifasComponent,
     AboutComponent,
     HeaderComponent,
-    RifaComponent,
     LoginComponent,
     UserDetailsComponent
   ],
