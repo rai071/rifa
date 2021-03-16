@@ -18,6 +18,8 @@ import { AboutComponent } from './about/about.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './security/login/login.component';
 import { UserDetailsComponent } from './header/user-details/user-details.component';
+import { CadastroComponent } from './security/cadastro/cadastro.component';
+import { InputComponent } from './messages/input/input.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,9 @@ import { UserDetailsComponent } from './header/user-details/user-details.compone
     AboutComponent,
     HeaderComponent,
     LoginComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    CadastroComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,

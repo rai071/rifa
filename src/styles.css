@@ -218,23 +218,6 @@ body {
   opacity: 0;
 }
 
-.detail-footer {
-  padding: 0px;
-}
-
-.detail-footer > a {
-  text-align: center;
-  font-size: 16px;
-  color: #555;
-  width: 50%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.detail-footer > a:hover {
-  outline: none;
-  text-decoration: none;
-}
 
 .detail-active {
   border-bottom: 2px solid #dd4b39;

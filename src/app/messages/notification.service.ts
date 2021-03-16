@@ -31,4 +31,20 @@ export class NotificationService {
             }
         });
     }
+
+    alertNovoCadastroConfirmation() {
+        Swal.fire({
+            title: 'Usuário não encontrado !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Cadastrar',
+            cancelButtonText: 'Fechar'
+        }).then((result) => {
+            if (result.value) {
+                this.router.navigateByUrl('cadastro');
+            }
+        });
+    }
+
+    
 }
