@@ -20,6 +20,7 @@ import { LoginComponent } from './security/login/login.component';
 import { UserDetailsComponent } from './header/user-details/user-details.component';
 import { CadastroComponent } from './security/cadastro/cadastro.component';
 import { InputComponent } from './messages/input/input.component';
+import {RifasCartComponent} from './rifas/rifas-cart/rifas-cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { InputComponent } from './messages/input/input.component';
     LoginComponent,
     UserDetailsComponent,
     CadastroComponent,
-    InputComponent
+    InputComponent,
+    RifasCartComponent
   ],
   imports: [
     BrowserModule,
