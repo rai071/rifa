@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { RifasCartService } from './cart-service';
 import { RifasComponent } from '../rifas.component';
+import { RifanComponent } from 'src/app/rifan/rifan.component';
 
 @Component({
   selector: 'app-rifas-cart',
   templateUrl: './rifas-cart.component.html',
+  styleUrls: ['./rifas-cart.component.css'],
   providers: [RifasCartService, RifasComponent],
   animations: [
     trigger('row', [
@@ -28,7 +30,10 @@ export class RifasCartComponent implements OnInit {
   rowState = 'ready';
   itemAllRemove: any;
 
-  constructor(private rifasCartService: RifasCartService, private rifa: RifasComponent) { }
+  constructor(
+    private rifasCartService: RifasCartService,
+    private rifa: RifasComponent,
+    private rifan: RifanComponent) { }
 
   ngOnInit() {
   }
@@ -44,7 +49,8 @@ export class RifasCartComponent implements OnInit {
   }
 
   removeItem(item: any) {
-    this.rifa.emitAddEvent(item);
+    // this.rifa.emitAddEvent(item);
+    this.rifan.emitAddEvent(item);
     this.rifasCartService.removeItem(item);
   }
 
@@ -54,5 +60,9 @@ export class RifasCartComponent implements OnInit {
 
   total(): number {
     return this.rifasCartService.total();
+  }
+
+  comprar() {
+
   }
 }

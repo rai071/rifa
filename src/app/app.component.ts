@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  content = 'Welcome do Rifa App!';
+  content = 'Welcome do Rifan App!';
 
   constructor() { }
 

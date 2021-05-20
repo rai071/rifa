@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from 'src/app/security/login/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Usuario } from 'src/app/security/login/user.model';
+
 
 @Component({
   selector: 'app-user-details',
@@ -9,19 +10,47 @@ import { User } from 'src/app/security/login/user.model';
 })
 export class UserDetailsComponent implements OnInit {
 
-  user: User;
+  usuario = {} as Usuario;
+
+  isUrlFriend: boolean;
 
   constructor(private router: Router) {
-    this.user = new User('', '', '');
-   }
+  }
 
   ngOnInit() {
-    console.log(JSON.parse(localStorage.getItem('user')));
+    let friend: any;
+    if (sessionStorage.getItem('rifa_token')) {
+      friend = sessionStorage.getItem('rifa_token');
+    }
+    const param = window.location.href.includes('token');
+    if (param) {
+      this.isUrlFriend = true;
+    } else if (friend) {
+      this.isUrlFriend = true;
+    } else {
+      this.isUrlFriend = false;
+    }
+  }
+
+  isFriend() {
+
+    let friend: any;
+    if (sessionStorage.getItem('rifa_token')) {
+      friend = sessionStorage.getItem('rifa_token');
+    }
+    this.usuario = JSON.parse(sessionStorage.getItem('user'));
+    if (this.usuario && !friend) {
+      return true;
+    } else if (friend) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   isLoggedIn() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    if (this.user !== null && this.user !== undefined && this.user.email !== '') {
+    this.usuario = JSON.parse(sessionStorage.getItem('user'));
+    if (this.usuario !== null && this.usuario !== undefined && this.usuario.user_email !== '') {
       return true;
     } else {
       return false;
@@ -33,8 +62,9 @@ export class UserDetailsComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
-    this.user = undefined;
+    sessionStorage.clear();
+    this.usuario = undefined;
     this.router.navigateByUrl('login');
   }
+
 }

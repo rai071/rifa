@@ -4,6 +4,6 @@ export class RifaItem {
     constructor(public rifaItem: RifaCartItem, public quantity: number = 1) { }
 
     value(): number {
-        return this.rifaItem.price * this.quantity;
+        return this.quantity * this.quantity;
     }
 }

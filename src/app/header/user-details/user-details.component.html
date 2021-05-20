@@ -1,8 +1,8 @@
 <div class="navbar-custom-menu">
   <ul class="nav navbar-nav">
-    <li class="user user-menu">
+    <li class="user user-menu" *ngIf="!isUrlFriend">
         <span *ngIf="isLoggedIn(); else notLoggedIn">
-          Olá, {{ user.nome }} | <a (click)="logout()">Sair</a>
+          Olá, {{ usuario.user_name }} | <a (click)="logout()">Sair</a>
         </span>
       <ng-template #notLoggedIn>
         <a (click)="login()">Entrar</a>

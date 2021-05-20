@@ -24,7 +24,6 @@ export class RifasCartService {
 
     increaseQty(item: RifaItem) {
         item.quantity = item.quantity + 1;
-        console.log(item.quantity);
     }
 
     decreaseQty(item: RifaItem) {

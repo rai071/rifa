@@ -1,3 +1,3 @@
 import {environment} from '../environments/environment';
 
-export const RIFA_API = environment.api;
+export const RIFA_API = environment;

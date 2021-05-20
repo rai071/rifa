@@ -4,13 +4,20 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { UserDetailsComponent } from 'src/app/header/user-details/user-details.component';
 import { NotificationService } from 'src/app/messages/notification.service';
-import { User } from '../login/user.model';
+import { RIFA_API } from 'src/app/api';
+
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+import { Usuario } from '../login/user.model';
+import { ServiceConf } from 'src/app/service/service-config';
+
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css'],
-  providers: [UserDetailsComponent]
+  providers: [UserDetailsComponent, ServiceConf]
 })
 export class CadastroComponent implements OnInit {
 
@@ -20,12 +27,16 @@ export class CadastroComponent implements OnInit {
 
   cadastroForm: FormGroup;
 
-  usuario: User;
+  usuario = {} as Usuario;
 
   notificationService: NotificationService;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private userDetailsComponent: UserDetailsComponent) {
-    this.usuario = new User('', '', '');
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private userDetailsComponent: UserDetailsComponent,
+    private service: ServiceConf) {
   }
 
   ngOnInit() {
@@ -66,13 +77,28 @@ export class CadastroComponent implements OnInit {
   novoUsuario() {
     this.notificationService = new NotificationService(this.router);
     if (this.cadastroForm.status === 'VALID') {
-      this.usuario.nome = this.cadastroForm.value.name.split(' ', 1)[0];
-      this.usuario.email = this.cadastroForm.value.email;
-      this.usuario.password = this.cadastroForm.value.password;
-      localStorage.setItem('user', JSON.stringify(this.usuario));
-      this.router.navigateByUrl('rifas');
-      this.userDetailsComponent.isLoggedIn();
+      this.usuario.user_name = this.cadastroForm.value.name;
+      this.usuario.user_email = this.cadastroForm.value.email;
+      this.usuario.user_password = this.cadastroForm.value.password;
+
+      this.service.saveUsuarioNovoCadastro(this.usuario).subscribe({
+        next: data => {
+          sessionStorage.setItem('user', JSON.stringify(data));
+          this.router.navigateByUrl('rifan');
+          this.userDetailsComponent.isLoggedIn();
+        },
+        error: error => {
+          this.showMessage(error.error.info);
+        }
+      });
+    } else {
+      const msg = `Preencha os campos`;
+      this.showMessage(msg);
     }
+  }
+
+  showMessage(msg: any) {
+    this.notificationService.simpleAlert(msg);
   }
 
 }

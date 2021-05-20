@@ -10,3 +10,6 @@ body {
     text-align: center;
     color: #61534e;
   }
+  table {
+    width: 100%;
+  }

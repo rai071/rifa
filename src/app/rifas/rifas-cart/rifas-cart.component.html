@@ -1,20 +1,17 @@
-<div class="box box-solid">
+<div class="box box-solid marginTop">
   <div class="box-header">
     <i class="fa fa-shopping-cart"></i>
-    <h3 class="box-title">Carrinho</h3>
+    <h3 class="box-title">Números Selecionados</h3>
   </div>
   <div class="box-body">
     <div *ngIf="!items().length">
-      <p class="text-center">Seu carrinho está vazio!</p>
+      <p class="text-center">Nenhum número selecionado!</p>
     </div>
     <div class="table-responsive" *ngIf="items().length">
       <table class="table">
         <tbody>
           <tr *ngFor="let item of items()" [@row]="rowState">
-            <th>({{ item.quantity }}x) {{ item.rifaItem.name }}</th>
-            <td class="text-right">
-              {{ item.value() | currency: "BRL":true }}
-            </td>
+            <th>({{ item.quantity }}) {{ item.rifaItem.filme }}</th>
             <td class="text-right">
               <a (click)="removeItem(item)" class="btn btn-sm danger"
                 ><i class="fa fa-remove"></i
@@ -23,7 +20,7 @@
           </tr>
           <tr>
             <th>Total:</th>
-            <td class="text-right">{{ total() | currency: "BRL":true }}</td>
+            <td class="text-right">{{ total() }}</td>
           </tr>
         </tbody>
       </table>
@@ -33,16 +30,16 @@
     <div class="pull-right">
       <!-- <button (click)="clear()" type="button" class="btn btn-danger" style="margin-right: 5px;"><i class="fa fa-trash"></i> Limpar</button> -->
       <a
-        [routerLink]="['/order']"
+        (click)="comprar()"
         class="btn btn-success"
         style="margin-right: 5px"
-        ><i class="fa fa-credit-card"></i> Fechar Pedido</a
+        ><i class="fa fa-credit-card"></i> Finalizar</a
       >
     </div>
   </div>
 </div>
 <div>
-  <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
 </div>

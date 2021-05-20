@@ -3,14 +3,13 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { empty, Observable } from 'rxjs';
-import { User } from '../security/login/user.model';
 import { Router } from '@angular/router';
 import { NotificationService } from '../messages/notification.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { RifaCartItem } from './rifas-cart/cart-item-model';
 import { RifasCartComponent } from './rifas-cart/rifas-cart.component';
-
 import { RifasCartService } from './rifas-cart/cart-service';
+import { Usuario } from '../security/login/user.model';
 @Component({
   selector: 'app-rifas',
   templateUrl: './rifas.component.html',
@@ -26,7 +25,7 @@ export class RifasComponent implements OnInit {
 
   LIMIT_SELECT_NUMBER = 3;
 
-  users = [
+  users: [
     { id: 1, numero: '1', filme: 'Vingadores', email: '', flag: false, price: 2.00 },
     { id: 2, numero: '2', filme: 'Tropa de Elite', email: 'rai071@github.com', flag: false, price: 2.00 },
     { id: 3, numero: '3', filme: 'Star Wars', email: '', flag: false, price: 2.00 },
@@ -43,10 +42,14 @@ export class RifasComponent implements OnInit {
     { id: 14, numero: '14', filme: 'Central do Brasil', email: '', flag: false, price: 2.00 }
   ];
 
+  customers: any[];
+
+  scrollableCols: any[];
+
   time = new Date();
 
   searchBarState = 'hidden';
-  usuario: User = new User('', '', '');
+  usuario = {} as Usuario;
 
   searchForm: FormGroup;
   searchControl: FormControl;
@@ -54,8 +57,8 @@ export class RifasComponent implements OnInit {
   notificationService: NotificationService;
 
   constructor(private router: Router) {
-    if (localStorage.length > 0) {
-      this.usuario = JSON.parse(localStorage.getItem('user'));
+    if (sessionStorage.length > 0) {
+      this.usuario = JSON.parse(sessionStorage.getItem('user'));
     }
   }
 
@@ -63,6 +66,14 @@ export class RifasComponent implements OnInit {
     setInterval(() => {
       this.time = new Date();
     }, 1000);
+
+    this.scrollableCols = [
+      { field: 'id', header: 'Id' },
+      { field: 'date', header: 'Date' },
+      { field: 'company', header: 'Company' },
+      { field: 'status', header: 'Status' },
+      { field: 'activity', header: 'Activity' }
+  ];
   }
 
   public selectUsers(event: any, user: any) {
@@ -70,14 +81,14 @@ export class RifasComponent implements OnInit {
     user.flag = !user.flag;
     const s = user.email;
     if (s) {
-      if (s === this.usuario.email && event === 1) {
+      if (s === this.usuario.user_email && event === 1) {
         user.email = '';
       } else {
         const msg = `Número já selecionado`;
         this.notificationService.simpleAlert(msg);
       }
-    } else if (this.usuario.email) {
-      user.email = this.usuario.email;
+    } else if (this.usuario.user_email) {
+      user.email = this.usuario.user_email;
       const msg = `Adicionado 1 item ao Carrinho`;
       this.notificationService.simpleAlert(msg);
     } else {
@@ -95,7 +106,6 @@ export class RifasComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         user.email = '';
-
       }
     });
   }
@@ -103,4 +113,5 @@ export class RifasComponent implements OnInit {
   emitAddEvent(item: any) {
     this.selectUsers(1, item.rifaItem);
   }
+
 }

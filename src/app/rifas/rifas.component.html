@@ -22,7 +22,7 @@
             <tr
               *ngFor="let rifa of users; let i = index"
               (click)="
-                !rifa.email && usuario.email ? rifaCart.addItem(rifa) : ''
+                !rifa.email && usuario.user_email ? rifaCart.addItem(rifa) : ''
               "
               (click)="selectUsers($event, rifa)"
               [class.selected]="rifa.flag === true"
@@ -34,6 +34,7 @@
             </tr>
           </tbody>
         </table>
+        
       </div>
     </div>
   </section>

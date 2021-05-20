@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:3000'
+  api: 'http://projetouni9t43.tecnologia.ws/apis/',
+  BASE_URL: '/api'
 };

@@ -9,7 +9,7 @@
           <input
             type="text"
             class="form-control"
-            formControlName="email"
+            formControlName="user_email"
             placeholder="E-mail"
             autocomplete="off"
           />
@@ -19,19 +19,29 @@
       <div class="form-group has-feedback">
         <app-input-container errorMessage="Informe a senha" label="Senha">
           <input
-          type="password"
-          formControlName="password"
-          class="form-control"
-          placeholder="Password"
-          required
+            type="password"
+            formControlName="user_password"
+            class="form-control"
+            placeholder="Password"
+            required
           />
         </app-input-container>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-offset-8 col-xs-4">
+        <div class="col-md-3 col-xs-6">
           <button
-            type="submit"
+            type="button"
+            [routerLink]="['/cadastro']"
+            class="btn btn-primary btn-block btn-flat"
+            style="margin-right: 5px"
+          >
+            Cadastro
+          </button>
+        </div>
+        <div class="col-md-3 col-xs-6 pull-right">
+          <button
+            type="button"
             (click)="login()"
             [disabled]="!loginForm.valid"
             class="btn btn-primary btn-block btn-flat"
